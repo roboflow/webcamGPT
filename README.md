@@ -1,2 +1,15 @@
 # gpt-stream
-OpenAI GPT Vision meets your webcam.
+
+## 👋 hello
+
+TODO
+
+## 💻 Install
+
+```bash
+```
+
+## 📸 Execute examples
+
+```bash
+```
