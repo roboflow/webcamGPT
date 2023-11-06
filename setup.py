@@ -15,7 +15,7 @@ setup(
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/roboflow/gptstream',
-    packages=find_packages(exclude=["tests*", "docs*", "examples*"]),
+    packages=['gptstream'],
     include_package_data=False,
     classifiers=[
         'Development Status :: 3 - Alpha',
