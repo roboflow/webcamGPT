@@ -1,37 +1,27 @@
-import os
 import cv2
 import argparse
-import requests
 import gptstream
 
 
-API_KEY = os.getenv('OPENAI_API_KEY')
-
-HEADERS = {
-    "Content-Type": "application/json",
-    "Authorization": f"Bearer {API_KEY}"
-}
-
-
-def main(image_path):
-    image = cv2.imread(image_path)
+def main(image: str, prompt: str):
+    connector = gptstream.OpanAIConnector()
+    image_numpy = cv2.imread(image)
     if image is None:
-        raise IOError(f"Cannot load image from {image_path}")
+        raise IOError(f"Cannot load image from {image_numpy}")
 
-    payload = gptstream.compose_payload(image=image, prompt="What is this?")
+    description = connector.simple_prompt(image=image_numpy, prompt=prompt)
+    print(description)
 
-    response = requests.post("https://api.openai.com/v1/chat/completions",
-                             headers=HEADERS, json=payload).json()
-
-    print(response['choices'][0]['message']['content'])
-
-    cv2.imshow('Loaded Image', image)
+    cv2.imshow('Loaded Image', image_numpy)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Image display script')
-    parser.add_argument('--image_path', type=str, help='Path to the image file')
+    parser = argparse.ArgumentParser(description='Image display script with a prompt')
+    parser.add_argument(
+        '--image', type=str, required=True, help='Path to the image file')
+    parser.add_argument(
+        '--prompt', type=str, required=True, help='Prompt for the AI to describe the image')
     args = parser.parse_args()
-    main(args.image_path)
+    main(args.image, args.prompt)
