@@ -3,6 +3,8 @@
     <p>chat with video stream</p>
 </div>
 
+https://github.com/roboflow/webcamGPT/assets/26109316/9ffe4607-f111-4048-9ce4-3e105afdfda0
+
 ## 👋 hello
 
 webcamGPT is a set of tools and examples showing how to use the OpenAI vision API to 
