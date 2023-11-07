@@ -7,15 +7,15 @@ with open('requirements.txt', encoding='utf-8') as f:
     requirements = f.read().splitlines()
 
 setup(
-    name='gptstream',
+    name='webcamgpt',
     version='0.1.0',
     author='Piotr Skalski',
     author_email='piotr.skalski92@gmail.com',
-    description='OpenAI GPT Vision meets your webcam',
+    description='WebcamGPT - chat with video stream',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    url='https://github.com/roboflow/gptstream',
-    packages=['gptstream'],
+    url='https://github.com/roboflow/webcamgpt',
+    packages=['webcamgpt'],
     include_package_data=False,
     classifiers=[
         'Development Status :: 3 - Alpha',

@@ -1,10 +1,10 @@
 import cv2
 import argparse
-import gptstream
+import webcamgpt
 
 
 def main(image: str, prompt: str):
-    connector = gptstream.OpanAIConnector()
+    connector = webcamgpt.OpanAIConnector()
     image_numpy = cv2.imread(image)
     if image is None:
         raise IOError(f"Cannot load image from {image_numpy}")

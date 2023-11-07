@@ -3,7 +3,7 @@ import os
 import numpy as np
 import requests
 
-from gptstream.utils import compose_payload
+from webcamgpt.utils import compose_payload
 
 
 API_KEY = os.getenv('OPENAI_API_KEY')
