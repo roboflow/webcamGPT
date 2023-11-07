@@ -1,47 +1,25 @@
-import threading
-
-import cv2
+import gradio as gr
+import numpy as np
 
 import webcamgpt
 
-FRAME = None
-FRAME_CAPTURE_EVENT = threading.Event()
-STOP = False
+connector = webcamgpt.OpanAIConnector()
 
 
-def capture_frame(camera_id):
-    global FRAME
-    global STOP
-    global FRAME_CAPTURE_EVENT
-    cap = cv2.VideoCapture(camera_id)
-
-    while cap.isOpened() and not STOP:
-        ret, frame = cap.read()
-        if not ret:
-            break
-        FRAME = frame
-        FRAME_CAPTURE_EVENT.set()
+def respond(image: np.ndarray, prompt: str, chat_history):
+    response = connector.simple_prompt(image=image, prompt=prompt)
+    chat_history.append((prompt, response))
+    return "", chat_history
 
 
-def main():
-    global STOP
-    global FRAME
-    global FRAME_CAPTURE_EVENT
-    connector = webcamgpt.OpanAIConnector()
+with gr.Blocks() as demo:
+    with gr.Row():
+        webcam = gr.Image(source="webcam", streaming=True)
+        with gr.Column():
+            chatbot = gr.Chatbot()
+            message = gr.Textbox()
+            clear_button = gr.ClearButton([message, chatbot])
 
-    frame_thread = threading.Thread(target=capture_frame, args=(1,))
-    frame_thread.start()
-    FRAME_CAPTURE_EVENT.wait()
-    while True:
-        print("Please enter your prompt or type 'quit' to exit:")
-        prompt = input()
-        if prompt.lower() == 'quit':
-            break
+    message.submit(respond, [webcam, message, chatbot], [message, chatbot])
 
-        image_numpy = FRAME.copy()
-        description = connector.simple_prompt(image=image_numpy, prompt=prompt)
-        print(description)
-
-
-if __name__ == '__main__':
-    main()
+demo.launch(debug=False, show_error=True)
