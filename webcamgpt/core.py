@@ -9,7 +9,7 @@ from webcamgpt.utils import compose_payload
 API_KEY = os.getenv('OPENAI_API_KEY')
 
 
-class OpanAIConnector:
+class OpenAIConnector:
 
     def __init__(self, api_key: str = API_KEY):
         if api_key is None:
