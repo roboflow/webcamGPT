@@ -13,7 +13,7 @@ MARKDOWN = """
 This is a demo of webcamGPT, a tool that allows you to chat with video using GPT-4. 
 """
 
-connector = webcamgpt.OpanAIConnector()
+connector = webcamgpt.OpenAIConnector()
 
 
 def save_image_to_drive(image: np.ndarray) -> str:
