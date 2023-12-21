@@ -3,4 +3,4 @@ openai
 opencv-python
 numpy
 requests
-gradio==3.50.2
+gradio==4.11.0
